@@ -1,27 +1,16 @@
-// const postInfo1 = {
-//     title: 'food',
-//     body: 'bard',
-//     userId: 1,
-// }
-const submitBtn = document.getElementById("submit");
-submitBtn.addEventListener("click", () => {
-    const title = document.getElementById("title").value;
-    const bodyContent = document.getElementById("bodyContent").value;
-    const post = {
-        title: title,
-        body: bodyContent
-    };
-    nowPostToServer(post);
-})
+const url = "https://jsonplaceholder.typicode.com/todos/10"
 
-function nowPostToServer(postInfo) {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            body: JSON.stringify(postInfo),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-}
+fetch(url)
+    .then((res) => {
+        if (!res.ok) {
+            const message = `Error: ${res.status}`
+            throw new Error(message)
+        }
+        return res.json()
+    })
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
